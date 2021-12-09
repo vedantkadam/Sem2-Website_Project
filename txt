@@ -1,0 +1,23 @@
+   $con = new mysqli("localhost","root","","contactme");
+    if($con->connect_error){
+        die("failed to connect :" .$con->connect_error);
+    }
+    else{
+        $stmt = $con->prepare("select * from login where email = ?");
+        $stmt->bind_param("s",$u);
+        $stmt->execute();
+        $stmt->result =$stmt->get_result();
+        if($stmt_result->num_rows > 0)
+        {
+         $data =$stmt_result->fetch_assoc();
+         if($data['message'] === $password){
+             echo "<h2>login seccussefuk</h2>";
+         }
+         else{
+             echo "<h2>Invalid Email or password </h2>";
+         }
+        }
+        else{
+            echo "<h2>Invalid Email or password</h2>";
+        }
+        }
